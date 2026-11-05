@@ -178,7 +178,7 @@
         .pitch-ticker-track {
             display: inline-flex;
             white-space: nowrap;
-            animation: seamlessTicker 14s linear infinite; /* Ritmo medio continuo */
+            animation: seamlessTicker 14s linear infinite;
         }
 
         .pitch-ticker-content {
@@ -1186,7 +1186,7 @@
         </div>
     </div>
 
-    <!-- SCRIPTS: WEB AUDIO SINTETIZADO & CANVAS CINÉTICO ULTRA-FLUIDO -->
+    <!-- SCRIPTS: WEB AUDIO SINTETIZADO, REPRODUCTOR DESDE /music/ & CANVAS CINÉTICO -->
     <script>
         // =========================================================
         // 1. SONIDOS ARCADE WINNING ELEVEN / SEGA (WEB AUDIO API)
@@ -1228,69 +1228,135 @@
             } catch(e) {}
         }
 
-        // Bucle de ritmo de entrenamiento
-        let isBeatOn = false;
-        let beatInterval = null;
-        let beatTick = 0;
+        // =========================================================
+        // 2. REPRODUCTOR DE MÚSICA AUTOMÁTICO (ESCANEO DE CARPETA /music/)
+        // Detecta automáticamente cualquier MP3 subido a GitHub sin escribir nombres
+        // =========================================================
+        const gymAudio = new Audio();
+        const DEFAULT_MUSIC_VOL = 0.35;
+        gymAudio.volume = DEFAULT_MUSIC_VOL;
 
-        function playKick(ctx, t) {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.frequency.setValueAtTime(140, t);
-            osc.frequency.exponentialRampToValueAtTime(38, t + 0.1);
-            gain.gain.setValueAtTime(0.24, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.12);
+        // Lista de canciones activa (con fallback predeterminado de tu subida a GitHub)
+        let musicPlaylist = [
+            "./music/Pro%20Evolution%20Soccer%206%20-%20Main%20Menu%20(Existence).mp3"
+        ];
+
+        let isMusicPlaying = false;
+        let currentTrackIdx = -1;
+        let musicFadeTimer = null;
+
+        // LECTOR AUTOMÁTICO DESDE LA API DE GITHUB (Detecta cualquier archivo en /music)
+        async function loadMusicFromFolder() {
+            try {
+                const res = await fetch('https://api.github.com/repos/onceoncegrafica-1111/dynamicagym2/contents/music');
+                if (res.ok) {
+                    const files = await res.json();
+                    const tracks = files
+                        .filter(f => f.type === 'file' && f.name.toLowerCase().endsWith('.mp3'))
+                        .map(f => `./music/${encodeURIComponent(f.name)}`);
+                    if (tracks.length > 0) {
+                        musicPlaylist = tracks;
+                    }
+                }
+            } catch (e) {}
         }
 
-        function playSnare(ctx, t) {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(280, t);
-            gain.gain.setValueAtTime(0.08, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.08);
+        function playGymTrack(url, duration = 800) {
+            if (musicFadeTimer) clearInterval(musicFadeTimer);
+
+            gymAudio.src = url;
+            gymAudio.volume = 0;
+
+            gymAudio.play().then(() => {
+                isMusicPlaying = true;
+                updateAudioButtonUI(true);
+
+                const steps = 20;
+                const stepTime = duration / steps;
+                const volStep = DEFAULT_MUSIC_VOL / steps;
+
+                musicFadeTimer = setInterval(() => {
+                    if (gymAudio.volume + volStep < DEFAULT_MUSIC_VOL) {
+                        gymAudio.volume += volStep;
+                    } else {
+                        gymAudio.volume = DEFAULT_MUSIC_VOL;
+                        clearInterval(musicFadeTimer);
+                        musicFadeTimer = null;
+                    }
+                }, stepTime);
+            }).catch(() => {
+                isMusicPlaying = false;
+                updateAudioButtonUI(false);
+            });
+        }
+
+        function fadeOutGymMusic(duration = 400) {
+            if (musicFadeTimer) clearInterval(musicFadeTimer);
+
+            isMusicPlaying = false;
+            updateAudioButtonUI(false);
+
+            if (gymAudio.paused) return;
+
+            const steps = 15;
+            const stepTime = duration / steps;
+            const volStep = gymAudio.volume / steps;
+
+            musicFadeTimer = setInterval(() => {
+                if (gymAudio.volume - volStep > 0) {
+                    gymAudio.volume -= volStep;
+                } else {
+                    gymAudio.volume = 0;
+                    gymAudio.pause();
+                    clearInterval(musicFadeTimer);
+                    musicFadeTimer = null;
+                }
+            }, stepTime);
+        }
+
+        function updateAudioButtonUI(active) {
+            const pill = document.getElementById('audioPill');
+            const pillText = document.getElementById('audioPillText');
+            if (pill) pill.classList.toggle('active', active);
+            if (pillText) pillText.innerText = active ? "RITMO: ON" : "RITMO: OFF";
         }
 
         function toggleArcadeBeat() {
-            const ctx = getAudio();
             playArcadeClick();
 
-            const pill = document.getElementById('audioPill');
-            const pillText = document.getElementById('audioPillText');
+            if (!isMusicPlaying) {
+                if (musicPlaylist.length === 0) return;
 
-            if (!isBeatOn) {
-                isBeatOn = true;
-                pill.classList.add('active');
-                pillText.innerText = "RITMO: ON";
+                let nextIdx;
+                do {
+                    nextIdx = Math.floor(Math.random() * musicPlaylist.length);
+                } while (nextIdx === currentTrackIdx && musicPlaylist.length > 1);
 
-                const intervalMs = 115;
-                beatInterval = setInterval(() => {
-                    const now = ctx.currentTime;
-                    if (beatTick % 4 === 0) playKick(ctx, now);
-                    if (beatTick % 4 === 2) playSnare(ctx, now);
-                    beatTick = (beatTick + 1) % 16;
-                }, intervalMs);
+                currentTrackIdx = nextIdx;
+                playGymTrack(musicPlaylist[currentTrackIdx], 900);
             } else {
-                isBeatOn = false;
-                pill.classList.remove('active');
-                pillText.innerText = "RITMO: OFF";
-                if (beatInterval) {
-                    clearInterval(beatInterval);
-                    beatInterval = null;
-                }
+                fadeOutGymMusic(450);
             }
         }
 
+        // Salto automático a la siguiente canción al terminar la actual (Loop infinito)
+        gymAudio.addEventListener('ended', () => {
+            if (isMusicPlaying) {
+                currentTrackIdx = (currentTrackIdx + 1) % musicPlaylist.length;
+                playGymTrack(musicPlaylist[currentTrackIdx], 800);
+            }
+        });
+
+        // Tolerancia a fallos: salta a la siguiente si un archivo tiene un error
+        gymAudio.addEventListener('error', () => {
+            if (isMusicPlaying && musicPlaylist.length > 1) {
+                currentTrackIdx = (currentTrackIdx + 1) % musicPlaylist.length;
+                playGymTrack(musicPlaylist[currentTrackIdx], 600);
+            }
+        });
+
         // =========================================================
-        // 2. MODO CLARO / MODO OSCURO
+        // 3. MODO CLARO / MODO OSCURO
         // =========================================================
         let isDarkMode = false;
         function toggleSportsTheme() {
@@ -1310,7 +1376,7 @@
         }
 
         // =========================================================
-        // 3. CANVAS: ESTELAS CINÉTICAS AERODINÁMICAS (FLUIDEZ ARMÓNICA)
+        // 4. CANVAS: ESTELAS CINÉTICAS AERODINÁMICAS (FLUIDEZ ARMÓNICA)
         // =========================================================
         const canvas = document.getElementById('motionCanvas');
         const ctx = canvas.getContext('2d');
@@ -1405,7 +1471,7 @@
         requestAnimationFrame(renderHarmonicStreams);
 
         // =========================================================
-        // 4. VERIFICADOR DE HORARIO REAL (PUERTO IGUAZÚ UTC-3)
+        // 5. VERIFICADOR DE HORARIO REAL (PUERTO IGUAZÚ UTC-3)
         // =========================================================
         function updateLiveSchedule() {
             const now = new Date();
@@ -1427,15 +1493,12 @@
             let isOpen = false;
 
             if (day >= 1 && day <= 5) {
-                // Lunes a Viernes: 07:00 a 22:00
                 if (rowMonFri) rowMonFri.classList.add('active-today');
                 if (currentHour >= 7.0 && currentHour < 22.0) isOpen = true;
             } else if (day === 6) {
-                // Sábados: 08:00 a 14:00
                 if (rowSat) rowSat.classList.add('active-today');
                 if (currentHour >= 8.0 && currentHour < 14.0) isOpen = true;
             } else {
-                // Domingos cerrado
                 if (rowSun) rowSun.classList.add('active-today');
             }
 
@@ -1453,7 +1516,7 @@
         }
 
         // =========================================================
-        // 5. MODAL TÁCTICO DE DISCIPLINAS
+        // 6. MODAL TÁCTICO DE DISCIPLINAS
         // =========================================================
         const modalEl = document.getElementById('tacticalModal');
         function openTacticalModal() { modalEl.classList.add('open'); }
@@ -1465,6 +1528,7 @@
         // INICIALIZACIÓN
         document.addEventListener('DOMContentLoaded', () => {
             updateLiveSchedule();
+            loadMusicFromFolder(); // Escaneo dinámico automático de la carpeta music en GitHub
 
             try {
                 if (localStorage.getItem('dg2_sports_theme') === 'dark') {
