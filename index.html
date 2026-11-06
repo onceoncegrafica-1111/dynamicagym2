@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DINÁMICA GYM 2 | Centro de Entrenamiento & Fuerza · Puerto Iguazú</title>
+    <title>DYNAMIC GYM 2 | Centro de Entrenamiento & Fuerza · Puerto Iguazú</title>
     <meta name="description" content="Centro de Musculación, Fuerza, Rendimiento y Cardio en Puerto Iguazú, Misiones. Av. Misiones 211.">
 
     <!-- TIPOGRAFÍAS ATHLETIC IMPACT -->
@@ -94,13 +94,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 0 0 60px;
+            padding: 0 0 70px;
             overflow-x: hidden;
             position: relative;
             transition: background-color 0.25s ease, color 0.25s ease;
         }
 
-        /* CANVAS DE FONDO REACTIVO: ESTELAS AERODINÁMICAS FLUIDAS */
+        /* CANVAS DE FONDO REACTIVO */
         .arcade-energy-canvas {
             position: fixed;
             top: 0;
@@ -125,7 +125,7 @@
             height: 100%;
         }
 
-        /* SCANLINES SUTILES CONSOLA DEPORTIVA */
+        /* SCANLINES CONSOLA DEPORTIVA */
         .arcade-scanlines {
             position: fixed;
             top: 0;
@@ -143,15 +143,14 @@
             background-size: 100% 4px;
         }
 
-        /* TICKER NIKE PITCH SUPERIOR CON LOOP CONTINUO SIN VACÍOS */
+        /* TICKER NIKE PITCH SUPERIOR CON CICLO INFINITO 100% SIN HUECOS */
         .nike-pitch-bar {
             width: 100%;
             background: var(--nike-black);
             color: var(--bg-surface);
-            padding: 8px 14px;
+            padding: 8px 0;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             font-family: var(--font-display);
             font-size: 0.95rem;
             font-weight: 800;
@@ -159,6 +158,7 @@
             text-transform: uppercase;
             border-bottom: 2px solid var(--vt-orange);
             z-index: 10;
+            overflow: hidden;
         }
 
         body.dark-mode .nike-pitch-bar {
@@ -169,16 +169,14 @@
         .pitch-ticker-wrap {
             overflow: hidden;
             white-space: nowrap;
-            position: relative;
-            flex: 1;
-            margin-right: 12px;
+            width: 100%;
             display: flex;
         }
 
         .pitch-ticker-track {
             display: inline-flex;
             white-space: nowrap;
-            animation: seamlessTicker 14s linear infinite;
+            animation: seamlessTicker 24s linear infinite;
         }
 
         .pitch-ticker-content {
@@ -194,7 +192,7 @@
 
         .pitch-ticker-content span {
             color: var(--vt-yellow);
-            margin: 0 8px;
+            margin: 0 10px;
         }
 
         /* CONTENEDOR CENTRAL */
@@ -204,207 +202,230 @@
             padding: 16px 16px 0;
             display: flex;
             flex-direction: column;
-            gap: 14px;
             z-index: 2;
         }
 
-        /* TOP BAR: CONTROLES Y TAG DE ESTADO */
+        /* =========================================================
+           TOP NAV: BOTONES COMPACTOS EN LOS EXTREMOS
+           ========================================================= */
         .top-nav-cluster {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            gap: 8px;
+            margin-bottom: 28px;
         }
 
-        /* INSIGNIA "SALA DE ENTRENAMIENTO" */
-        .brand-kicker-tag {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
+        .pill-toggle-btn {
+            background: var(--vt-orange);
+            color: #FFFFFF;
+            border: 2px solid var(--border-crisp);
+            border-radius: 999px;
+            padding: 5px 13px;
+            font-family: var(--font-display);
+            font-size: 0.82rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            padding: 5px 10px;
-            background: #FFFFFF;
-            color: #0B0D11;
-            border: 1.5px solid var(--border-crisp);
-            border-radius: 4px;
-            box-shadow: 2px 2px 0px var(--border-crisp);
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 2.5px 2.5px 0px var(--border-crisp);
+            transition: all 0.15s ease;
+            user-select: none;
+            flex: none;
         }
 
-        body.dark-mode .brand-kicker-tag {
+        .pill-toggle-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px var(--border-crisp);
+        }
+
+        #audioPill {
+            background: var(--volt-pure);
+            color: #0B0D11;
+        }
+
+        #audioPill.active {
+            background: #10B981;
+            color: #FFFFFF;
+        }
+
+        body.dark-mode #themePill {
+            background: #F3F4F6;
+            color: #0B0D11;
+        }
+
+        /* =========================================================
+           HERO LOGO: JERARQUÍA ABSOLUTA, MONUMENTAL Y LIBRE
+           ========================================================= */
+        .brand-hero-monument {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        /* LOGO PRINCIPAL RECTOR */
+        .brand-main-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.6rem, 11vw, 3.9rem);
+            font-weight: 900;
+            font-style: italic;
+            line-height: 0.9;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            white-space: nowrap;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.08);
+            transition: color 0.2s ease;
+        }
+
+        body.dark-mode .brand-main-title {
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.85);
+        }
+
+        .brand-main-title span {
+            color: var(--vt-orange);
+            white-space: nowrap;
+        }
+
+        /* LEMA ATLÉTICO EN CÁPSULA ARMONIZADA DE ALTO CONTRASTE */
+        .brand-motto-spread {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-surface);
+            border: 1.5px solid var(--border-crisp);
+            border-radius: 999px;
+            padding: 5px 16px;
+            box-shadow: 2.5px 2.5px 0px var(--border-crisp);
+            font-family: var(--font-display);
+            font-size: clamp(0.85rem, 3.4vw, 1.02rem);
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-top: 10px;
+            transition: all 0.25s ease;
+        }
+
+        body.dark-mode .brand-motto-spread {
             background: #181E29;
             color: #FFFFFF;
             border-color: rgba(255, 255, 255, 0.25);
             box-shadow: 2px 2px 0px #000000;
         }
 
-        .kicker-led {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--vt-orange);
-            box-shadow: 0 0 8px var(--vt-orange);
-            animation: pulseLed 1.4s infinite ease-in-out;
-        }
-
-        @keyframes pulseLed {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.35; transform: scale(0.75); }
-        }
-
-        .toggles-group {
-            display: flex;
+        /* CÁPSULA INDUSTRIAL DE UBICACIÓN */
+        .brand-location-capsule {
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .pill-toggle-btn {
             background: var(--bg-surface);
-            border: 2px solid var(--border-crisp);
+            border: 1.5px solid var(--border-crisp);
             border-radius: 999px;
-            padding: 5px 12px;
-            font-family: var(--font-display);
-            font-size: 0.88rem;
-            font-weight: 800;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--text-primary);
+            padding: 4px 13px;
             box-shadow: 2px 2px 0px var(--border-crisp);
-            transition: all 0.15s ease;
-            user-select: none;
-        }
-
-        .pill-toggle-btn:active {
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px var(--border-crisp);
-        }
-
-        .pill-toggle-btn.active {
-            background: var(--vt-orange);
-            color: #FFFFFF;
-            border-color: var(--border-crisp);
-        }
-
-        /* HEADER IDENTIDAD: GEOMETRÍA HÍBRIDA */
-        .header-identity {
-            position: relative;
-            background: var(--bg-surface);
-            border: 2px solid var(--border-crisp);
-            border-radius: 6px;
-            box-shadow: var(--shadow-hard);
-            padding: 18px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            overflow: hidden;
-        }
-
-        .header-identity::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 80px;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 40%, rgba(255, 70, 0, 0.14) 100%);
-            pointer-events: none;
-        }
-
-        .identity-top-row {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .identity-titles {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-main-title {
-            font-family: var(--font-display);
-            font-size: 2.9rem;
-            font-weight: 900;
-            font-style: italic;
-            line-height: 0.88;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            color: var(--text-primary);
-        }
-
-        .brand-main-title span {
-            color: var(--vt-orange);
-        }
-
-        .brand-motto {
-            font-family: var(--font-display);
-            font-size: 1.05rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-top: 5px;
-        }
-
-        .brand-badge-d2 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--nike-black);
-            color: var(--bg-surface);
-            font-family: var(--font-impact);
-            font-size: 1.7rem;
-            line-height: 1;
-            padding: 8px 12px;
-            border-radius: 4px;
-            border: 2px solid var(--border-crisp);
-            box-shadow: 3px 3px 0px var(--vt-orange);
-        }
-
-        body.dark-mode .brand-badge-d2 {
-            background: var(--vt-orange);
-            color: #000;
-            box-shadow: 3px 3px 0px #FFF;
-        }
-
-        .location-callout {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-card-subtle);
-            border-left: 4px solid var(--vt-orange);
-            border-radius: 0 4px 4px 0;
-            padding: 6px 12px;
             font-family: var(--font-mono);
-            font-size: 0.74rem;
+            font-size: clamp(0.66rem, 2.5vw, 0.74rem);
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-primary);
+            margin-top: 8px;
+            transition: all 0.25s ease;
         }
 
-        /* ESTRUCTURA DEL MENÚ */
+        body.dark-mode .brand-location-capsule {
+            background: #181E29;
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        /* CÁPSULA MARISOL NOVI DE ALTA VISIBILIDAD */
+        .instructor-credit-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--bg-surface);
+            border: 1.5px solid var(--border-crisp);
+            border-radius: 999px;
+            padding: 5px 14px;
+            box-shadow: 2px 2px 0px var(--border-crisp);
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 8px;
+            transition: all 0.25s ease;
+        }
+
+        body.dark-mode .instructor-credit-line {
+            background: #181E29;
+            color: #FFFFFF;
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        .instructor-credit-line strong {
+            color: var(--vt-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        body.dark-mode .instructor-credit-line strong {
+            color: var(--vt-orange-hot);
+            text-shadow: 0 0 8px rgba(255, 119, 0, 0.45);
+        }
+
+        .instructor-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--volt-pure);
+            border: 1px solid #000;
+        }
+
+        /* =========================================================
+           ESTRUCTURA DEL MENÚ: CADENCIA RÍTMICA DINÁMICA
+           ========================================================= */
         .arcade-menu-tree {
             display: flex;
             flex-direction: column;
-            gap: 12px;
             width: 100%;
         }
 
-        /* CARD MASTER: BALANCE ENTRE RECTITUD Y FLUIDEZ */
+        .rhythm-block-hero {
+            margin-bottom: 22px;
+        }
+
+        .rhythm-block-social {
+            margin-bottom: 14px;
+        }
+
+        .rhythm-block-gym {
+            margin-bottom: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rhythm-block-info {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* CARD MASTER */
         .sports-card {
             background: var(--bg-surface);
             border: 2px solid var(--border-crisp);
-            border-radius: 5px;
+            border-radius: 6px;
             box-shadow: var(--shadow-hard);
             padding: 16px 18px;
             display: flex;
@@ -429,6 +450,36 @@
             width: 5px;
             background: var(--border-crisp);
             transition: width 0.18s ease, background 0.18s ease;
+        }
+
+        /* MICRO-SOLAPAS DE VÉRTICE (16PX - NO OBSTRUYEN NADA) */
+        .corner-notch-orange::after,
+        .corner-notch-cyan::after,
+        .corner-notch-volt::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .corner-notch-orange::after {
+            border-width: 0 16px 16px 0;
+            border-color: transparent var(--vt-orange) transparent transparent;
+        }
+
+        .corner-notch-cyan::after {
+            border-width: 0 16px 16px 0;
+            border-color: transparent var(--we-cyan) transparent transparent;
+        }
+
+        .corner-notch-volt::after {
+            border-width: 0 16px 16px 0;
+            border-color: transparent var(--volt-pure) transparent transparent;
         }
 
         .sports-card:hover {
@@ -478,9 +529,9 @@
 
         /* ICON SHIELD INDUSTRIAL */
         .sports-icon-shield {
-            width: 46px;
-            height: 46px;
-            min-width: 46px;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
             background: var(--bg-card-subtle);
             border: 2px solid var(--border-crisp);
             border-radius: 4px;
@@ -504,8 +555,8 @@
         }
 
         .sports-icon-shield svg {
-            width: 23px;
-            height: 23px;
+            width: 22px;
+            height: 22px;
         }
 
         .card-text-block {
@@ -558,7 +609,7 @@
         }
 
         .card-lead-desc {
-            font-size: 0.86rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-secondary);
             white-space: nowrap;
@@ -568,7 +619,7 @@
 
         .arrow-action-fast {
             font-family: var(--font-impact);
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             color: var(--vt-orange);
             transition: transform 0.18s ease;
         }
@@ -577,9 +628,82 @@
             transform: translateX(4px);
         }
 
-        /* =========================================================
-           DISCIPLINAS TÁCTICAS: RECTITUD WE10 DEPORTIVA
-           ========================================================= */
+        /* REDES SOCIALES */
+        .social-network-cluster {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .social-cell-btn {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-crisp);
+            border-radius: 6px;
+            box-shadow: var(--shadow-hard);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.16s ease;
+        }
+
+        .social-cell-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px var(--vt-orange);
+        }
+
+        .social-cell-btn.instagram-cell:hover {
+            border-color: #E1306C;
+            box-shadow: 4px 4px 0px #E1306C;
+        }
+
+        .social-cell-btn.facebook-cell:hover {
+            border-color: #1877F2;
+            box-shadow: 4px 4px 0px #1877F2;
+        }
+
+        .social-cell-icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 1.5px solid var(--border-crisp);
+            background: var(--bg-card-subtle);
+        }
+
+        .social-cell-content {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .social-cell-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .social-cell-handle {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* DISCIPLINAS TÁCTICAS */
         .tactical-stepper-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -590,15 +714,16 @@
         .step-module {
             background: var(--bg-surface);
             border: 2px solid var(--border-crisp);
-            border-radius: 4px;
+            border-radius: 5px;
             box-shadow: 3px 3px 0px var(--border-crisp);
-            padding: 12px 14px;
+            padding: 12px 13px;
             display: flex;
             flex-direction: column;
             gap: 5px;
             position: relative;
             cursor: pointer;
             transition: all 0.15s ease;
+            overflow: hidden;
         }
 
         .step-module:hover {
@@ -628,15 +753,13 @@
         }
 
         .step-module-desc {
-            font-size: 0.78rem;
+            font-size: 0.77rem;
             line-height: 1.25;
             color: var(--text-secondary);
             font-weight: 600;
         }
 
-        /* =========================================================
-           HORARIOS: LIVE MATCH TIME (PUERTO IGUAZÚ UTC-3)
-           ========================================================= */
+        /* HORARIOS DE ATENCIÓN REALES */
         .live-status-card {
             background: var(--bg-surface);
             border: 2px solid var(--border-crisp);
@@ -646,6 +769,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
 
         .status-header {
@@ -677,7 +802,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 700;
             color: var(--text-secondary);
         }
@@ -688,9 +813,9 @@
 
         .time-row span.badge {
             font-family: var(--font-mono);
-            font-size: 0.76rem;
+            font-size: 0.74rem;
             background: var(--bg-card-subtle);
-            padding: 2px 8px;
+            padding: 2px 7px;
             border: 1px solid var(--border-crisp);
             border-radius: 3px;
             color: var(--text-primary);
@@ -702,9 +827,7 @@
             border-color: var(--vt-orange);
         }
 
-        /* =========================================================
-           MAPA COCKPIT STADIUM
-           ========================================================= */
+        /* MAPA COCKPIT */
         .stadium-map-box {
             background: var(--bg-surface);
             border: 2px solid var(--border-crisp);
@@ -714,6 +837,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
 
         .map-top-bar {
@@ -735,7 +860,7 @@
 
         .map-embed-wrapper {
             width: 100%;
-            height: 220px;
+            height: 210px;
             border: 2px solid var(--border-crisp);
             border-radius: 4px;
             overflow: hidden;
@@ -751,7 +876,7 @@
 
         /* FOOTER DEPORTIVO */
         .sports-footer {
-            margin-top: 24px;
+            margin-top: 36px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -779,9 +904,7 @@
             color: var(--text-secondary);
         }
 
-        /* =========================================================
-           MODAL TÁCTICO DE PLANES & RUTINAS
-           ========================================================= */
+        /* MODAL TÁCTICO DE PLANES & RUTINAS */
         .tactical-modal-backdrop {
             position: fixed;
             top: 0;
@@ -930,211 +1053,232 @@
 </head>
 <body>
 
-    <!-- SCANLINES SUTILES CONSOLA DEPORTIVA -->
+    <!-- SCANLINES CONSOLA DEPORTIVA -->
     <div class="arcade-scanlines"></div>
 
-    <!-- CANVAS DE FONDO REACTIVO: ESTELAS AERODINÁMICAS EN TÚNEL DE VIENTO -->
+    <!-- CANVAS DE FONDO REACTIVO -->
     <div class="arcade-energy-canvas">
         <canvas id="motionCanvas"></canvas>
     </div>
 
-    <!-- TICKER NIKE PITCH SUPERIOR: MARQUESINA CONTINUA SIN ESPACIOS VACÍOS -->
+    <!-- TICKER NIKE PITCH SUPERIOR CON LOOP INFINITO (SIN ESPACIOS NI HUECOS) -->
     <div class="nike-pitch-bar">
         <div class="pitch-ticker-wrap">
             <div class="pitch-ticker-track">
-                <!-- BLOQUE 1 -->
+                <!-- MITAD A (50% DEL TRACK) -->
                 <div class="pitch-ticker-content">
-                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DINÁMICA GYM 2 FUERZA REAL <span>///</span>&nbsp;
+                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DYNAMIC GYM 2 FUERZA REAL <span>///</span>&nbsp;
+                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DYNAMIC GYM 2 FUERZA REAL <span>///</span>&nbsp;
+                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DYNAMIC GYM 2 FUERZA REAL <span>///</span>&nbsp;
                 </div>
-                <!-- BLOQUE 2 (COPIA EXACTA PARA EMPALME INMEDIATO) -->
+                <!-- MITAD B (50% DEL TRACK - COPIA IDÉNTICA PARA EMPALME MATEMÁTICO INFINITO) -->
                 <div class="pitch-ticker-content" aria-hidden="true">
-                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DINÁMICA GYM 2 FUERZA REAL <span>///</span>&nbsp;
+                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DYNAMIC GYM 2 FUERZA REAL <span>///</span>&nbsp;
+                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DYNAMIC GYM 2 FUERZA REAL <span>///</span>&nbsp;
+                    MUSCULACIÓN & PESO LIBRE <span>///</span> RUTINAS PERSONALIZADAS <span>///</span> PUERTO IGUAZÚ <span>///</span> SIN EXCUSAS <span>///</span> DYNAMIC GYM 2 FUERZA REAL <span>///</span>&nbsp;
                 </div>
             </div>
-        </div>
-        <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--vt-orange); flex-shrink: 0;">
-            [EN VIVO 2026]
         </div>
     </div>
 
     <!-- CONTENEDOR CENTRAL -->
     <main class="hub-container">
 
-        <!-- TOP BAR: TELEMETRÍA Y CONTROLES ARCADE -->
+        <!-- 1. TOP NAV: BOTONES COMPACTOS EN LOS EXTREMOS -->
         <div class="top-nav-cluster">
-            <!-- INSIGNIA VISIBLE AL 100% EN AMBOS MODOS -->
-            <div class="brand-kicker-tag">
-                <span class="kicker-led"></span>
-                <span>SALA DE ENTRENAMIENTO</span>
-            </div>
+            <button type="button" class="pill-toggle-btn" id="themePill" onclick="toggleSportsTheme()" title="Cambiar modo de luz">
+                <span id="themePillText">MODO OSCURO</span>
+            </button>
 
-            <div class="toggles-group">
-                <!-- SWITCH TEMA (MODO DÍA / MODO NOCHE) -->
-                <button type="button" class="pill-toggle-btn" id="themePill" onclick="toggleSportsTheme()" title="Cambiar modo de luz">
-                    <span id="themePillText">MODO NOCHE</span>
-                </button>
-
-                <!-- SWITCH AUDIO ENTRENAMIENTO -->
-                <button type="button" class="pill-toggle-btn" id="audioPill" onclick="toggleArcadeBeat()" title="Activar ritmo de sala">
-                    <span id="audioPillText">RITMO: OFF</span>
-                </button>
-            </div>
+            <button type="button" class="pill-toggle-btn" id="audioPill" onclick="toggleArcadeBeat()" title="Activar música de sala">
+                <span id="audioPillText">MÚSICA: OFF</span>
+            </button>
         </div>
 
-        <!-- HEADER PRINCIPAL: WE10 BRACKET + NIKE TYPOGRAPHY -->
-        <header class="header-identity">
-            <div class="identity-top-row">
-                <div class="identity-titles">
-                    <h1 class="brand-main-title">DINÁMICA <span>GYM 2</span></h1>
-                    <span class="brand-motto">FUERZA · RENDIMIENTO · DISCIPLINA</span>
-                </div>
-                <div class="brand-badge-d2">
-                    D2
-                </div>
+        <!-- 2. HERO LOGO: JERARQUÍA ABSOLUTA CON CÁPSULAS DE ALTA LEGIBILIDAD -->
+        <header class="brand-hero-monument">
+            <h1 class="brand-main-title">DYNAMIC <span>GYM 2</span></h1>
+            
+            <!-- RECUADRO CÁPSULA: LEMA -->
+            <div class="brand-motto-spread">FUERZA · RENDIMIENTO · DISCIPLINA</div>
+            
+            <!-- RECUADRO CÁPSULA: UBICACIÓN -->
+            <div class="brand-location-capsule">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Av. Misiones 211 · Puerto Iguazú</span>
             </div>
 
-            <div class="location-callout">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>Av. Misiones 211 · Puerto Iguazú, Misiones</span>
+            <!-- RECUADRO CÁPSULA: MARISOL NOVI -->
+            <div class="instructor-credit-line">
+                <span class="instructor-dot"></span>
+                <span>Coaching & Dirección: <strong>Marisol Novi</strong></span>
             </div>
         </header>
 
-        <!-- MENU PRINCIPAL: ESTILO WINNING ELEVEN 10 & NIKE CTAS -->
+        <!-- 3. MENÚ PRINCIPAL: CADENCIA RÍTMICA DINÁMICA -->
         <section class="arcade-menu-tree">
 
-            <!-- 1. HERO CTA: WHATSAPP DIRECTO (BORDES REDONDEADOS Y MÁXIMA ENERGÍA) -->
-            <a href="https://wa.me/5493757000000?text=Hola%20Din%C3%A1mica%20Gym%202!%20Quiero%20consultar%20por%20inscripciones%20y%20precios%20de%20cuota." target="_blank" rel="noopener noreferrer" class="sports-card card-hero-pulse" onclick="playArcadeClick()">
-                <div class="sports-icon-shield">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.59-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-                    </svg>
-                </div>
-                <div class="card-text-block">
-                    <div class="card-tag-row">
-                        <span class="card-lead-title">Inscripciones & Cuotas</span>
-                        <span class="nike-badge-pill volt">Consulta Inmediata</span>
+            <!-- HERO CARD: WHATSAPP -->
+            <div class="rhythm-block-hero">
+                <a href="https://wa.me/5493757000000?text=Hola%20Dynamic%20Gym%202!%20Quiero%20consultar%20por%20inscripciones%20y%20precios%20de%20cuota." target="_blank" rel="noopener noreferrer" class="sports-card card-hero-pulse corner-notch-volt" onclick="playArcadeClick()">
+                    <div class="sports-icon-shield">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.59-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+                        </svg>
                     </div>
-                    <span class="card-lead-desc">Consultá valores mensuales, pases diarios y disponibilidad</span>
-                </div>
-                <span class="arrow-action-fast">▶</span>
-            </a>
-
-            <!-- 2. SERVICIOS Y PLANES (DISPARADOR MODAL) -->
-            <div class="sports-card" onclick="openTacticalModal(); playArcadeClick();">
-                <div class="sports-icon-shield">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <line x1="6" y1="12" x2="18" y2="12"/>
-                        <line x1="12" y1="6" x2="12" y2="18"/>
-                        <circle cx="12" cy="12" r="9"/>
-                    </svg>
-                </div>
-                <div class="card-text-block">
-                    <div class="card-tag-row">
-                        <span class="card-lead-title">Planes & Áreas de Entrenamiento</span>
-                        <span class="nike-badge-pill">Ver Sala</span>
+                    <div class="card-text-block">
+                        <div class="card-tag-row">
+                            <span class="card-lead-title">Inscripciones & Cuotas</span>
+                            <span class="nike-badge-pill volt">Consulta Inmediata</span>
+                        </div>
+                        <span class="card-lead-desc">Valores mensuales, pases diarios y promociones</span>
                     </div>
-                    <span class="card-lead-desc">Fuerza · Hipertrofia · Cardio · Asesoramiento en Sala</span>
-                </div>
-                <span class="arrow-action-fast">▶</span>
+                    <span class="arrow-action-fast">▶</span>
+                </a>
             </div>
 
-            <!-- GRILLA ESCALONADA TÁCTICA (SECTORES DEL GIMNASIO) -->
-            <div class="tactical-stepper-grid">
-                <div class="step-module" onclick="openTacticalModal(); playArcadeClick();">
-                    <div class="step-module-index">
-                        <span>SECTOR 01</span>
-                        <span style="color:var(--vt-orange);">▲</span>
-                    </div>
-                    <span class="step-module-title">Peso Libre</span>
-                    <span class="step-module-desc">Mancuernas de alto gramaje, bancos regulables y barras olímpicas.</span>
-                </div>
+            <!-- REDES SOCIALES -->
+            <div class="rhythm-block-social">
+                <div class="social-network-cluster">
+                    <a href="https://www.instagram.com/dynamic_gym_2/" target="_blank" rel="noopener noreferrer" class="social-cell-btn instagram-cell corner-notch-orange" onclick="playArcadeClick()">
+                        <div class="social-cell-icon" style="color:#E1306C;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </div>
+                        <div class="social-cell-content">
+                            <span class="social-cell-title">Instagram</span>
+                            <span class="social-cell-handle">@dynamic_gym_2</span>
+                        </div>
+                    </a>
 
-                <div class="step-module" onclick="openTacticalModal(); playArcadeClick();">
-                    <div class="step-module-index">
-                        <span>SECTOR 02</span>
-                        <span style="color:var(--we-cyan);">▲</span>
-                    </div>
-                    <span class="step-module-title">Máquinas Guía</span>
-                    <span class="step-module-desc">Prensa de piernas 45°, poleas de dorsales y estaciones guiadas.</span>
-                </div>
-
-                <div class="step-module" onclick="openTacticalModal(); playArcadeClick();">
-                    <div class="step-module-index">
-                        <span>SECTOR 03</span>
-                        <span style="color:var(--vt-yellow);">▲</span>
-                    </div>
-                    <span class="step-module-title">Cardio & Trote</span>
-                    <span class="step-module-desc">Cintas de correr y bicicletas para calentamiento y trabajo aeróbico.</span>
-                </div>
-
-                <div class="step-module" onclick="openTacticalModal(); playArcadeClick();">
-                    <div class="step-module-index">
-                        <span>SECTOR 04</span>
-                        <span style="color:var(--volt-pure);">▲</span>
-                    </div>
-                    <span class="step-module-title">Rutinas Guiadas</span>
-                    <span class="step-module-desc">Seguimiento de profesores para principiantes y atletas avanzados.</span>
+                    <a href="https://www.facebook.com/marisol.novi.2025" target="_blank" rel="noopener noreferrer" class="social-cell-btn facebook-cell corner-notch-cyan" onclick="playArcadeClick()">
+                        <div class="social-cell-icon" style="color:#1877F2;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </div>
+                        <div class="social-cell-content">
+                            <span class="social-cell-title">Facebook</span>
+                            <span class="social-cell-handle">Marisol Novi</span>
+                        </div>
+                    </a>
                 </div>
             </div>
 
-            <!-- 3. HORARIOS EN VIVO: HUSO HORARIO REAL DE PUERTO IGUAZÚ (UTC-3) -->
-            <div class="live-status-card" onclick="playArcadeClick()">
-                <div class="status-header">
-                    <div class="status-title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        <span>Horarios de Atención</span>
+            <!-- SALA & DISCIPLINAS -->
+            <div class="rhythm-block-gym">
+                <div class="sports-card corner-notch-cyan" onclick="openTacticalModal(); playArcadeClick();">
+                    <div class="sports-icon-shield">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="6" y1="12" x2="18" y2="12"/>
+                            <line x1="12" y1="6" x2="12" y2="18"/>
+                            <circle cx="12" cy="12" r="9"/>
+                        </svg>
                     </div>
-                    <span class="nike-badge-pill hot" id="liveMatchPill">Comprobando...</span>
+                    <div class="card-text-block">
+                        <div class="card-tag-row">
+                            <span class="card-lead-title">Planes & Áreas de Sala</span>
+                            <span class="nike-badge-pill">Ver Todo</span>
+                        </div>
+                        <span class="card-lead-desc">Fuerza · Hipertrofia · Cardio · Rutinas Guiadas</span>
+                    </div>
+                    <span class="arrow-action-fast">▶</span>
                 </div>
 
-                <div class="live-match-clock">
-                    <div class="time-row" id="row-mon-fri">
-                        <span>Lunes a Viernes</span>
-                        <span class="badge">07:00 h — 22:00 h</span>
+                <div class="tactical-stepper-grid">
+                    <div class="step-module corner-notch-orange" onclick="openTacticalModal(); playArcadeClick();">
+                        <div class="step-module-index">
+                            <span>SECTOR 01</span>
+                            <span style="color:var(--vt-orange);">▲</span>
+                        </div>
+                        <span class="step-module-title">Peso Libre</span>
+                        <span class="step-module-desc">Mancuernas de alto kilaje, bancos regulables y barras olímpicas.</span>
                     </div>
-                    <div class="time-row" id="row-sat">
-                        <span>Sábados</span>
-                        <span class="badge">08:00 h — 14:00 h</span>
+
+                    <div class="step-module corner-notch-cyan" onclick="openTacticalModal(); playArcadeClick();">
+                        <div class="step-module-index">
+                            <span>SECTOR 02</span>
+                            <span style="color:var(--we-cyan);">▲</span>
+                        </div>
+                        <span class="step-module-title">Máquinas Guía</span>
+                        <span class="step-module-desc">Prensa 45°, poleas de dorsales y estaciones guiadas.</span>
                     </div>
-                    <div class="time-row" id="row-sun">
-                        <span>Domingos</span>
-                        <span class="badge" style="color: var(--vt-orange);">Cerrado</span>
+
+                    <div class="step-module corner-notch-volt" onclick="openTacticalModal(); playArcadeClick();">
+                        <div class="step-module-index">
+                            <span>SECTOR 03</span>
+                            <span style="color:var(--volt-pure);">▲</span>
+                        </div>
+                        <span class="step-module-title">Cardio & Trote</span>
+                        <span class="step-module-desc">Cintas de correr y bicicletas para resistencia y calentamiento.</span>
+                    </div>
+
+                    <div class="step-module corner-notch-orange" onclick="openTacticalModal(); playArcadeClick();">
+                        <div class="step-module-index">
+                            <span>SECTOR 04</span>
+                            <span style="color:var(--vt-yellow);">▲</span>
+                        </div>
+                        <span class="step-module-title">Rutinas Guiadas</span>
+                        <span class="step-module-desc">Seguimiento en sala tanto para principiantes como avanzados.</span>
                     </div>
                 </div>
             </div>
 
-            <!-- 4. MAPA STADIUM EN PUERTO IGUAZÚ -->
-            <div class="stadium-map-box" onclick="playArcadeClick()">
-                <div class="map-top-bar">
-                    <div class="map-top-title">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--vt-orange)" stroke-width="2.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
-                        <span>Ubicación en Puerto Iguazú</span>
+            <!-- INFO: HORARIOS, MAPA Y PAGOS -->
+            <div class="rhythm-block-info">
+                <div class="live-status-card corner-notch-volt" onclick="playArcadeClick()">
+                    <div class="status-header">
+                        <div class="status-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>Horarios de Atención</span>
+                        </div>
+                        <span class="nike-badge-pill hot" id="liveMatchPill">Comprobando...</span>
                     </div>
-                    <span class="nike-badge-pill">Av. Misiones 211</span>
-                </div>
-                <div class="map-embed-wrapper">
-                    <iframe 
-                        src="https://maps.google.com/maps?q=Av.+Misiones+211,+Puerto+Iguaz%C3%BA,+Misiones,+Argentina&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                        loading="lazy" 
-                        allowfullscreen="" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
 
-            <!-- 5. FORMAS DE PAGO -->
-            <div class="sports-card" style="cursor: default;" onclick="playArcadeClick()">
-                <div class="sports-icon-shield" style="color: var(--we-cyan);">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                </div>
-                <div class="card-text-block">
-                    <div class="card-tag-row">
-                        <span class="card-lead-title">Medios de Pago Habilitados</span>
-                        <span class="nike-badge-pill">Fácil</span>
+                    <div class="live-match-clock">
+                        <div class="time-row" id="row-mon-fri">
+                            <span>Lunes a Viernes</span>
+                            <span class="badge">07:00 a 11:30 | 14:30 a 21:30</span>
+                        </div>
+                        <div class="time-row" id="row-sat">
+                            <span>Sábados</span>
+                            <span class="badge">08:00 a 11:00 hs</span>
+                        </div>
+                        <div class="time-row" id="row-sun">
+                            <span>Domingos</span>
+                            <span class="badge" style="color: var(--vt-orange);">Cerrado</span>
+                        </div>
                     </div>
-                    <span class="card-lead-desc">Efectivo · Mercado Pago · Transferencias bancarias</span>
                 </div>
-                <span class="arrow-action-fast" style="color: var(--we-cyan);">✓</span>
+
+                <div class="stadium-map-box corner-notch-orange" onclick="playArcadeClick()">
+                    <div class="map-top-bar">
+                        <div class="map-top-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--vt-orange)" stroke-width="2.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
+                            <span>Ubicación en Puerto Iguazú</span>
+                        </div>
+                        <span class="nike-badge-pill">Av. Misiones 211</span>
+                    </div>
+                    <div class="map-embed-wrapper">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=Av.+Misiones+211,+Puerto+Iguaz%C3%BA,+Misiones,+Argentina&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                            loading="lazy" 
+                            allowfullscreen="" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="sports-card corner-notch-cyan" style="cursor: default;" onclick="playArcadeClick()">
+                    <div class="sports-icon-shield" style="color: var(--we-cyan);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    </div>
+                    <div class="card-text-block">
+                        <div class="card-tag-row">
+                            <span class="card-lead-title">Medios de Pago</span>
+                            <span class="nike-badge-pill">Habilitados</span>
+                        </div>
+                        <span class="card-lead-desc">Efectivo · Mercado Pago · Transferencias bancarias</span>
+                    </div>
+                    <span class="arrow-action-fast" style="color: var(--we-cyan);">✓</span>
+                </div>
             </div>
 
         </section>
@@ -1142,9 +1286,9 @@
         <!-- FOOTER DEPORTIVO -->
         <footer class="sports-footer">
             <div class="footer-stamp">
-                DINÁMICA <span>GYM 2</span> · PUERTO IGUAZÚ
+                DYNAMIC <span>GYM 2</span> · PUERTO IGUAZÚ
             </div>
-            <span class="footer-sub-legal">AV. MISIONES 211 · MISIONES · FUERZA REAL DE BARRIO</span>
+            <span class="footer-sub-legal">AV. MISIONES 211 · MISIONES · PROF. MARISOL NOVI</span>
         </footer>
 
     </main>
@@ -1160,25 +1304,25 @@
 
                 <div class="training-spec-card">
                     <h4>01 // Musculación & Hipertrofia <span class="nike-badge-pill hot">Fuerza</span></h4>
-                    <p>Zona completa con barras olímpicas, mancuernas sólidas y bancos ajustables. El pilar para aumentar masa muscular, corregir postura y elevar la fuerza con progresión real.</p>
-                    <a href="https://wa.me/5493757000000?text=Hola%20Din%C3%A1mica%20Gym!%20Quiero%20consultar%20por%20Musculaci%C3%B3n." target="_blank" class="btn-direct-book" onclick="playArcadeClick()">Consultar por WhatsApp ▶</a>
+                    <p>Zona con barras olímpicas, mancuernas sólidas y bancos ajustables. Para desarrollar masa muscular, postura y fuerza real con buena progresión.</p>
+                    <a href="https://wa.me/5493757000000?text=Hola%20Dynamic%20Gym%202!%20Quiero%20consultar%20por%20Musculaci%C3%B3n." target="_blank" class="btn-direct-book" onclick="playArcadeClick()">Consultar por WhatsApp ▶</a>
                 </div>
 
                 <div class="training-spec-card" style="border-left-color: var(--we-cyan);">
                     <h4>02 // Máquinas y Poleas Guía <span class="nike-badge-pill" style="border-color:var(--we-cyan); color:var(--we-cyan);">Técnica</span></h4>
-                    <p>Prensa 45°, poleas de dorsales, remos y módulos de aislamiento para entrenar de forma biomecánicamente segura reduciendo la fatiga articular.</p>
-                    <a href="https://wa.me/5493757000000?text=Hola%20Din%C3%A1mica%20Gym!%20Quiero%20consultar%20por%20las%20M%C3%A1quinas." target="_blank" class="btn-direct-book" onclick="playArcadeClick()">Consultar por WhatsApp ▶</a>
+                    <p>Prensa 45°, poleas para dorsales y estaciones guiadas para entrenar seguro y reducir impacto en articulaciones.</p>
+                    <a href="https://wa.me/5493757000000?text=Hola%20Dynamic%20Gym%202!%20Quiero%20consultar%20por%20las%20M%C3%A1quinas." target="_blank" class="btn-direct-book" onclick="playArcadeClick()">Consultar por WhatsApp ▶</a>
                 </div>
 
                 <div class="training-spec-card" style="border-left-color: var(--vt-yellow);">
                     <h4>03 // Sector Cardio & Resistencia <span class="nike-badge-pill volt">Aeróbico</span></h4>
-                    <p>Cintas de correr y bicicletas para calentamiento, trabajo cardiovascular continuo o remate de entrenamientos para consumo calórico.</p>
-                    <a href="https://wa.me/5493757000000?text=Hola%20Din%C3%A1mica%20Gym!%20Quiero%20consultar%20por%20Cardio." target="_blank" class="btn-direct-book" onclick="playArcadeClick()">Consultar por WhatsApp ▶</a>
+                    <p>Cintas de correr y bicicletas para calentamiento o trabajo aeróbico continuo.</p>
+                    <a href="https://wa.me/5493757000000?text=Hola%20Dynamic%20Gym%202!%20Quiero%20consultar%20por%20Cardio." target="_blank" class="btn-direct-book" onclick="playArcadeClick()">Consultar por WhatsApp ▶</a>
                 </div>
 
                 <div class="training-spec-card" style="border-left-color: var(--border-crisp);">
-                    <h4>04 // Guía & Rutinas para Principiantes <span class="nike-badge-pill">Profesores</span></h4>
-                    <p>Si es tu primera vez en un gimnasio, los profesores en el salón te preparan tu rutina adaptada para que empieces sin miedo y con técnica sólida.</p>
+                    <h4>04 // Guía & Acompañamiento <span class="nike-badge-pill">Marisol Novi</span></h4>
+                    <p>Si estás empezando, te guiamos en la sala paso a paso para que aprendas la técnica correcta desde el primer día.</p>
                     <a href="https://wa.me/5493757000000?text=Hola!%20Quiero%20empezar%20el%20gym%20desde%20cero,%20tienen%20rutina%20guiada?" target="_blank" class="btn-direct-book" onclick="playArcadeClick()">Pedir Asesoramiento ▶</a>
                 </div>
 
@@ -1189,7 +1333,7 @@
     <!-- SCRIPTS: WEB AUDIO SINTETIZADO, REPRODUCTOR DESDE /music/ & CANVAS CINÉTICO -->
     <script>
         // =========================================================
-        // 1. SONIDOS ARCADE WINNING ELEVEN / SEGA (WEB AUDIO API)
+        // 1. SONIDOS ARCADE (WEB AUDIO API)
         // =========================================================
         let audioCtx = null;
 
@@ -1229,14 +1373,12 @@
         }
 
         // =========================================================
-        // 2. REPRODUCTOR DE MÚSICA AUTOMÁTICO (ESCANEO DE CARPETA /music/)
-        // Detecta automáticamente cualquier MP3 subido a GitHub sin escribir nombres
+        // 2. REPRODUCTOR DE MÚSICA AUTOMÁTICO (ESCANEO DE /music/)
         // =========================================================
         const gymAudio = new Audio();
         const DEFAULT_MUSIC_VOL = 0.35;
         gymAudio.volume = DEFAULT_MUSIC_VOL;
 
-        // Lista de canciones activa (con fallback predeterminado de tu subida a GitHub)
         let musicPlaylist = [
             "./music/Pro%20Evolution%20Soccer%206%20-%20Main%20Menu%20(Existence).mp3"
         ];
@@ -1245,7 +1387,6 @@
         let currentTrackIdx = -1;
         let musicFadeTimer = null;
 
-        // LECTOR AUTOMÁTICO DESDE LA API DE GITHUB (Detecta cualquier archivo en /music)
         async function loadMusicFromFolder() {
             try {
                 const res = await fetch('https://api.github.com/repos/onceoncegrafica-1111/dynamicagym2/contents/music');
@@ -1318,7 +1459,7 @@
             const pill = document.getElementById('audioPill');
             const pillText = document.getElementById('audioPillText');
             if (pill) pill.classList.toggle('active', active);
-            if (pillText) pillText.innerText = active ? "RITMO: ON" : "RITMO: OFF";
+            if (pillText) pillText.innerText = active ? "MÚSICA: ON" : "MÚSICA: OFF";
         }
 
         function toggleArcadeBeat() {
@@ -1339,7 +1480,6 @@
             }
         }
 
-        // Salto automático a la siguiente canción al terminar la actual (Loop infinito)
         gymAudio.addEventListener('ended', () => {
             if (isMusicPlaying) {
                 currentTrackIdx = (currentTrackIdx + 1) % musicPlaylist.length;
@@ -1347,7 +1487,6 @@
             }
         });
 
-        // Tolerancia a fallos: salta a la siguiente si un archivo tiene un error
         gymAudio.addEventListener('error', () => {
             if (isMusicPlaying && musicPlaylist.length > 1) {
                 currentTrackIdx = (currentTrackIdx + 1) % musicPlaylist.length;
@@ -1356,7 +1495,7 @@
         });
 
         // =========================================================
-        // 3. MODO CLARO / MODO OSCURO
+        // 3. MODO OSCURO / MODO CLARO
         // =========================================================
         let isDarkMode = false;
         function toggleSportsTheme() {
@@ -1368,7 +1507,7 @@
             const themePillText = document.getElementById('themePillText');
 
             if (themePill) themePill.classList.toggle('active', isDarkMode);
-            if (themePillText) themePillText.innerText = isDarkMode ? "MODO DÍA" : "MODO NOCHE";
+            if (themePillText) themePillText.innerText = isDarkMode ? "MODO CLARO" : "MODO OSCURO";
 
             try {
                 localStorage.setItem('dg2_sports_theme', isDarkMode ? 'dark' : 'light');
@@ -1376,7 +1515,7 @@
         }
 
         // =========================================================
-        // 4. CANVAS: ESTELAS CINÉTICAS AERODINÁMICAS (FLUIDEZ ARMÓNICA)
+        // 4. CANVAS: ESTELAS CINÉTICAS AERODINÁMICAS
         // =========================================================
         const canvas = document.getElementById('motionCanvas');
         const ctx = canvas.getContext('2d');
@@ -1471,7 +1610,7 @@
         requestAnimationFrame(renderHarmonicStreams);
 
         // =========================================================
-        // 5. VERIFICADOR DE HORARIO REAL (PUERTO IGUAZÚ UTC-3)
+        // 5. HORARIOS OFICIALES EN VIVO (PUERTO IGUAZÚ UTC-3)
         // =========================================================
         function updateLiveSchedule() {
             const now = new Date();
@@ -1494,10 +1633,14 @@
 
             if (day >= 1 && day <= 5) {
                 if (rowMonFri) rowMonFri.classList.add('active-today');
-                if (currentHour >= 7.0 && currentHour < 22.0) isOpen = true;
+                if ((currentHour >= 7.0 && currentHour < 11.5) || (currentHour >= 14.5 && currentHour < 21.5)) {
+                    isOpen = true;
+                }
             } else if (day === 6) {
                 if (rowSat) rowSat.classList.add('active-today');
-                if (currentHour >= 8.0 && currentHour < 14.0) isOpen = true;
+                if (currentHour >= 8.0 && currentHour < 11.0) {
+                    isOpen = true;
+                }
             } else {
                 if (rowSun) rowSun.classList.add('active-today');
             }
@@ -1516,7 +1659,7 @@
         }
 
         // =========================================================
-        // 6. MODAL TÁCTICO DE DISCIPLINAS
+        // 6. MODAL TÁCTICO
         // =========================================================
         const modalEl = document.getElementById('tacticalModal');
         function openTacticalModal() { modalEl.classList.add('open'); }
@@ -1528,7 +1671,7 @@
         // INICIALIZACIÓN
         document.addEventListener('DOMContentLoaded', () => {
             updateLiveSchedule();
-            loadMusicFromFolder(); // Escaneo dinámico automático de la carpeta music en GitHub
+            loadMusicFromFolder();
 
             try {
                 if (localStorage.getItem('dg2_sports_theme') === 'dark') {
